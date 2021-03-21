@@ -6,16 +6,21 @@ public class PlayerBehaviour : MonoBehaviour
 {
     public CharacterController controller;
 
+    [Header("Movement")]
     public float maxSpeed = 10.0f;
     public float gravity = -30.0f;
     public float jumpHeight = 3.0f;
+    public Vector3 velocity;
 
+    [Header("Ground Detection")]
     public Transform groundCheck;
     public float groundRadius = 0.5f;
     public LayerMask groundMask;
-
-    public Vector3 velocity;
     public bool isGrounded;
+
+    [Header("MiniMap")]
+    public GameObject miniMap;
+
 
     // Start is called before the first frame update
     void Start()
@@ -49,6 +54,11 @@ public class PlayerBehaviour : MonoBehaviour
         velocity.y += gravity * Time.deltaTime;
 
         controller.Move(velocity * Time.deltaTime);
+
+        if (Input.GetKeyDown(KeyCode.M))
+        {
+            miniMap.SetActive(!miniMap.activeInHierarchy);
+        }
     }
 
     void OnDrawGizmos()
